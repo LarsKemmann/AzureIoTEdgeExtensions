@@ -16,9 +16,9 @@ namespace IoTEdge.Extensions.Hosting
                     logging.ClearProviders();
                     logging.AddSystemdConsole(options =>
                     {
-                        options.IncludeScopes = false;
-                        options.TimestampFormat = " yyyy-MM-dd hh:mm:ss.fff zzz ";
-                        options.UseUtcTimestamp = false;
+                        options.IncludeScopes = true;
+                        options.TimestampFormat = " yyyy-MM-dd hh:mm:ss.fff zzz "; // Wrap with spaces for readability and consistency with IoT Edge logs.
+                        options.UseUtcTimestamp = true; // Containers will typically have their clock set to UTC, so just make this consistent.
                     });
 
                     // Allow using trace logs for local development (and opt-in via environment variables in production).
