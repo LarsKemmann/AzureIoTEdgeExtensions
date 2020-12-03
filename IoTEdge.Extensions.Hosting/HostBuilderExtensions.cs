@@ -17,7 +17,7 @@ namespace IoTEdge.Extensions.Hosting
                     logging.AddSystemdConsole(options =>
                     {
                         options.IncludeScopes = false;
-                        options.TimestampFormat = " yyyy-mm-dd hh:mm:ss.fff zzz ";
+                        options.TimestampFormat = " yyyy-MM-dd hh:mm:ss.fff zzz ";
                         options.UseUtcTimestamp = false;
                     });
 
