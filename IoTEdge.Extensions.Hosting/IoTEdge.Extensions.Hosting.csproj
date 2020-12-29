@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>LarsKemmann</Authors>
-    <Version>1.0.2-alpha</Version>
+    <Version>1.0.3-alpha</Version>
     <PackageTags>azure iot edge dotnet</PackageTags>
     <Product>IoTEdge.Extensions.Hosting</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -12,7 +12,8 @@
     <RepositoryUrl>https://github.com/LarsKemmann/AzureIoTEdgeExtensions.git</RepositoryUrl>
     <PackageReleaseNotes>1.0.0-alpha is the initial public release, providing the IHostBuilder.ConfigureIoTEdgeTelemetry() extension method and the IModuleMetrics interface.
 1.0.1-alpha contains a bugfix for the date/time formatting of log messages.
-1.0.2-alpha makes log messages consistently use UTC and include the log scope, if any.</PackageReleaseNotes>
+1.0.2-alpha makes log messages consistently use UTC and include the log scope, if any.
+1.0.3-alpha suppresses default prometheus-net metrics to better align with IoT Edge.</PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
