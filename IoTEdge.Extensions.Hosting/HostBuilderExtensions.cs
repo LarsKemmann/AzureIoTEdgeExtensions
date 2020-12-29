@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Prometheus;
 
 namespace IoTEdge.Extensions.Hosting
 {
@@ -29,6 +30,9 @@ namespace IoTEdge.Extensions.Hosting
                 })
                 .ConfigureServices(services =>
                 {
+                    // Don't include the default sample metrics in the module telemetry.
+                    Metrics.SuppressDefaultMetrics();
+
                     // Set up a shared module-level Prometheus metrics service.
                     services.AddHostedService<PrometheusService>();
 
