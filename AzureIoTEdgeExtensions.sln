@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTEdge.Extensions.Licensing", "IoTEdge.Extensions.Licensing\IoTEdge.Extensions.Licensing.csproj", "{C025B5DB-555B-4FCE-BFA5-9B26084F733B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTEdge.Extensions.Licensing.Test", "IoTEdge.Extensions.Licensing.Test\IoTEdge.Extensions.Licensing.Test.csproj", "{4B7F3791-3E8B-4BE6-89CC-BBC1C58ADEB5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +24,14 @@ Global
 		{A147B063-21F6-4865-B4A4-F86FC48A298E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A147B063-21F6-4865-B4A4-F86FC48A298E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A147B063-21F6-4865-B4A4-F86FC48A298E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C025B5DB-555B-4FCE-BFA5-9B26084F733B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C025B5DB-555B-4FCE-BFA5-9B26084F733B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C025B5DB-555B-4FCE-BFA5-9B26084F733B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C025B5DB-555B-4FCE-BFA5-9B26084F733B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B7F3791-3E8B-4BE6-89CC-BBC1C58ADEB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B7F3791-3E8B-4BE6-89CC-BBC1C58ADEB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B7F3791-3E8B-4BE6-89CC-BBC1C58ADEB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B7F3791-3E8B-4BE6-89CC-BBC1C58ADEB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
