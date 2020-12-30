@@ -6,7 +6,7 @@ namespace IoTEdge.Extensions.Licensing
 {
     public interface ILicenseValidator
     {
-        Task<LicenseStatus> ValidateLicenseAsync(string licenseKey,
+        Task ValidateLicenseAsync(string licenseKey,
             string moduleInstanceName, string hostName, string hubName,
             DateTime utcNow, CancellationToken cancellationToken);
     }

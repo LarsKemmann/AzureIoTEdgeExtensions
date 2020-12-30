@@ -9,17 +9,16 @@ namespace IoTEdge.Extensions.Licensing
         private static readonly JwtSecurityTokenHandler jwtHandler = new JwtSecurityTokenHandler();
 
 
-        public static LicenseStatus Validate(string jws, X509SecurityKey issuerPublicKey,
+        public static void Validate(string jws, X509SecurityKey issuerPublicKey,
             string expectedTokenId, string validAudience, string validIssuer, DateTime utcNow,
             string moduleInstanceName, string hostName, string hubName)
         {
-            var status = LicenseStatus.Invalid;
-
             var validationParameters = new TokenValidationParameters
             {
                 AuthenticationType = nameof(JwsLicenseValidation),
                 IssuerSigningKey = issuerPublicKey,
                 LifetimeValidator =
+                    // Use a custom lifetime validator to allow for unit testing with mock system clock values.
                     (DateTime? notBefore, DateTime? expires, SecurityToken _, TokenValidationParameters __) =>
                     {
                         if (notBefore == null || expires == null)
@@ -28,12 +27,10 @@ namespace IoTEdge.Extensions.Licensing
                         }
                         if (utcNow < notBefore)
                         {
-                            status = LicenseStatus.NotYetValid;
                             return false;
                         }
                         else if (utcNow > expires)
                         {
-                            status = LicenseStatus.Expired;
                             return false;
                         }
                         else
@@ -46,22 +43,18 @@ namespace IoTEdge.Extensions.Licensing
             var claimsPrincipal = jwtHandler.ValidateToken(jws, validationParameters, out var validatedToken);
 
             if (expectedTokenId != null && validatedToken.Id != expectedTokenId)
-            {
-                status = LicenseStatus.SuspectedReplay;
-            }
-            else
-            {
-                var licensedModule = claimsPrincipal.FindFirst("module").Value;
-                var licensedDevice = claimsPrincipal.FindFirst("device").Value;
-                var licensedIoTHub = claimsPrincipal.FindFirst("iothub").Value;
+                throw new Exception("The token ID in the license did not match the expected value");
 
-                if (licensedModule == moduleInstanceName &&
-                    licensedDevice == hostName &&
-                    licensedIoTHub == hubName)
-                    status = LicenseStatus.Valid;
-            }
+            if (claimsPrincipal.FindFirst("device").Value != moduleInstanceName)
+                throw new Exception("The IoT Edge device name in the license did not match the expected value");
 
-            return status;
+            if (claimsPrincipal.FindFirst("iothub").Value != moduleInstanceName)
+                throw new Exception("The IoT Hub name in the license did not match the expected value");
+
+            // The module constraint is optional -- enforce it only if it was specified in the JWS.
+            var moduleClaim = claimsPrincipal.FindFirst("module")?.Value;
+            if (moduleClaim != null && moduleClaim != moduleInstanceName)
+                throw new Exception("The module instance name was specified in the license and did not match the expected value");
         }
     }
 }

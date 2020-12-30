@@ -41,11 +41,9 @@ namespace IoTEdge.Extensions.Licensing.Test
 
             var token = jwtHandler.CreateEncodedJwt(tokenDescriptor);
 
-            var result = JwsLicenseValidation.Validate(token, issuerPublicKey,
+            JwsLicenseValidation.Validate(token, issuerPublicKey,
                 expectedTokenId: "12345", validAudience: "AUDIENCE", validIssuer: "ISSUER",
                 now, moduleInstanceName: "modulename", hostName: "myedgehost", hubName: "myiothub");
-
-            Assert.AreEqual(LicenseStatus.Valid, result);
         }
     }
 }

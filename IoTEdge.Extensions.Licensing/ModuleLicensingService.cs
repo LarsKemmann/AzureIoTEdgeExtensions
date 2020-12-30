@@ -41,7 +41,7 @@ namespace IoTEdge.Extensions.Licensing
                 throw new InvalidOperationException($"MODULE_LICENSE_KEY environment variable is null or blank.");
             logger.LogInformation("License key '{LicenseKey}' loaded from environment variable", licenseKey);
 
-            licenseCheckInterval = TimeSpan.FromMinutes(15);
+            licenseCheckInterval = TimeSpan.FromHours(1);
             serviceStopping = new CancellationTokenSource();
         }
 
@@ -66,22 +66,10 @@ namespace IoTEdge.Extensions.Licensing
                 logger.LogTrace("Performing license check");
                 try
                 {
-                    var licenseStatus = await licenseValidator.ValidateLicenseAsync(licenseKey,
+                    await licenseValidator.ValidateLicenseAsync(licenseKey,
                         moduleInstanceName, hostName, hubName, DateTime.UtcNow, serviceStopping.Token);
-                    switch (licenseStatus)
-                    {
-                        case LicenseStatus.Expired:
-                            throw new Exception("License is expired");
-                        case LicenseStatus.Invalid:
-                            throw new Exception("License is invalid");
-                        case LicenseStatus.NotYetValid:
-                            throw new Exception("License is not yet valid");
-                        case LicenseStatus.SuspectedReplay:
-                            throw new Exception("Suspected license replay");
-                        case LicenseStatus.Valid:
-                            logger.LogTrace("License is valid");
-                            break;
-                    }
+                    logger.LogTrace("License is valid");
+
                     await Task.Delay(licenseCheckInterval, serviceStopping.Token);
                 }
                 catch (OperationCanceledException)
