@@ -1,10 +1,11 @@
 # Azure IoT Edge Extensions
-This library extends [Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge) to:
+These libraries extend [Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge) to:
 * integrate with [modern .NET hosting](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.1),
 * implement IoT Edge recommendations for [logging](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-retrieve-iot-edge-logs?view=iotedge-2018-06) via the standard .NET `ILogger<T>` API,
-* provide an easy onboarding path to IoT Edge recommendations for Prometheus-based [metrics](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-access-built-in-metrics?view=iotedge-2018-06).
+* provide an easy onboarding path to IoT Edge recommendations for Prometheus-based [metrics](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-access-built-in-metrics?view=iotedge-2018-06),
+* implement a robust module licensing client that is compatible with IoT Edge module-oriented licensing servers such as the [WorkSense Edge Licensing Service](https://worksense.io/products/edge-licensing-service).
 
-## Usage
+## Logging & Metrics
 Add the `IoTEdge.Extensions.Hosting` NuGet package to your application.
 
 ### Logging
@@ -55,5 +56,34 @@ public sealed class MyModuleService : IHostedService
 }
 ```
 
-### Feedback
-This is an alpha release. All feedback, bug reports, etc. are welcome! Please use the Issues tab in this repository.
+## Licensing
+Add the `IoTEdge.Extensions.Licensing` NuGet package to your application.
+
+In your _Program.cs_ file, add a call to `IHostBuilder.ConfigureIoTEdgeOnlineLicensing(...)` as follows, using the URL and public key X.509 certificate of the licensing server:
+```c#
+public static void Main(string[] args)
+{
+    // Load the public key certificate (obtained from the licensing server).
+    // Remember to include this file in the build output of your project.
+    var issuerPublicCert = new X509Certificate2(@".\issuer.cer");
+
+    Host.CreateDefaultBuilder(args)
+        // Add this line
+        .ConfigureIoTEdgeOnlineLicensing("https://licensing.example.com", issuerPublicCert)
+        .ConfigureServices(services =>
+        {
+            services.AddHostedService<MyModuleService>();
+        }).Build().Run();
+}
+```
+This configures the licensing module to enable periodic license checks.
+
+The licensing system can be used to restrict a license key for use with a particular IoT Edge device (using a combination of the device ID and the associated IoT Hub name to guarantee global uniqueness). Keys can optionally be restricted to a single module or to multiple modules on the same device.
+
+### Advanced Usage
+The licensing validation primitives in this library are designed to allow plugging in other licensing systems. Take a look at the `ILicenseValidator` interface, which can be used in conjunction with the `IHostBuilder.ConfigureIoTEdgeLicensing<T>(...)` method to implement other license validation schemes, including offline licensing. The `JwsLicenseValidation` class provides a public `Validate` method that you can make use of in implementing your own license validation solution.
+
+Similarly, you can extend the `OnlineJwsLicenseValidator` class to provide server-specific defaults and reduce boilerplate code in your module.
+
+## Feedback
+This is an alpha release. All feedback, feature requests, bug reports, etc. are welcome! Please use the Issues tab in this repository.
