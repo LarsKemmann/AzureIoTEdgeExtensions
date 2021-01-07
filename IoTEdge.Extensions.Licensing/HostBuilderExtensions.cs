@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace IoTEdge.Extensions.Licensing
 {
     public static class HostBuilderExtensions
     {
         public static IHostBuilder ConfigureIoTEdgeOnlineLicensing(this IHostBuilder hostBuilder,
-            string licensingServerUrl, X509SecurityKey issuerPublicKey) =>
+            string licensingServerUrl, X509Certificate2 issuerPublicKey) =>
             ConfigureIoTEdgeLicensing(hostBuilder, _ =>
                 new OnlineJwsLicenseValidator(licensingServerUrl, issuerPublicKey));
 

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>LarsKemmann</Authors>
-    <Version>1.1.0-alpha</Version>
+    <Version>1.1.1-alpha</Version>
     <PackageTags>azure iot edge dotnet</PackageTags>
     <Product>IoTEdge.Extensions.Licensing</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
