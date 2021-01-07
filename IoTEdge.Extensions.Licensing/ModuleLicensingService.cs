@@ -15,6 +15,7 @@ namespace IoTEdge.Extensions.Licensing
         private string hostName;
         private readonly string hubName;
         private readonly TimeSpan licenseCheckInterval;
+        private readonly int maxConsecutiveCheckFailures;
         private readonly CancellationTokenSource serviceStopping;
         private Task periodicLicenseChecks;
 
@@ -42,6 +43,7 @@ namespace IoTEdge.Extensions.Licensing
             logger.LogInformation("License key '{LicenseKey}' loaded from environment variable", licenseKey);
 
             licenseCheckInterval = TimeSpan.FromHours(1);
+            maxConsecutiveCheckFailures = 36;
             serviceStopping = new CancellationTokenSource();
         }
 
@@ -61,6 +63,8 @@ namespace IoTEdge.Extensions.Licensing
 
         private async Task PeriodicLicenseChecksAsync()
         {
+            var consecutiveFailures = 0;
+            var isFirstCheck = true;
             do
             {
                 logger.LogTrace("Performing license check");
@@ -78,9 +82,14 @@ namespace IoTEdge.Extensions.Licensing
                 }
                 catch (Exception ex)
                 {
-                    logger.LogCritical(ex, "License validation failed");
-                    throw;
+                    consecutiveFailures++;
+                    logger.LogCritical(ex, isFirstCheck
+                        ? $"Startup license validation failed"
+                        : $"Post-startup license validation failed {consecutiveFailures} time(s)");
+                    if (isFirstCheck || consecutiveFailures > maxConsecutiveCheckFailures)
+                        throw;
                 }
+                isFirstCheck = false;
             } while (!serviceStopping.IsCancellationRequested);
         }
     }
