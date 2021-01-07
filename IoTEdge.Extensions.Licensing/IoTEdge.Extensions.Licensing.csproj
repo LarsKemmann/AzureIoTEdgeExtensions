@@ -11,8 +11,7 @@
     <PackageProjectUrl>https://github.com/LarsKemmann/AzureIoTEdgeExtensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LarsKemmann/AzureIoTEdgeExtensions.git</RepositoryUrl>
     <PackageReleaseNotes>
-      1.1.0-alpha is the initial public release, providing the IHostBuilder.ConfigureIoTEdgeLicensing() extension method
-      and a more generic IHostBuilder.ConfigureIoTEdgeLicensing&lt;T&gt;() alternative.
+      1.1.0-alpha is the initial public release, providing the IHostBuilder.ConfigureIoTEdgeLicensing() extension method and a more generic IHostBuilder.ConfigureIoTEdgeLicensing&lt;T&gt;() alternative.
     </PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
