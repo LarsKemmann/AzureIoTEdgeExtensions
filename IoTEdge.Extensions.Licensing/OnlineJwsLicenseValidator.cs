@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,10 +23,10 @@ namespace IoTEdge.Extensions.Licensing
         private readonly AsyncRetryPolicy exponentialBackoffPolicy;
 
 
-        public OnlineJwsLicenseValidator(string licensingServerUrl, X509SecurityKey issuerPublicKey)
+        public OnlineJwsLicenseValidator(string licensingServerUrl, X509Certificate2 issuerPublicKey)
         {
             this.licensingServerUrl = licensingServerUrl;
-            this.issuerPublicKey = issuerPublicKey;
+            this.issuerPublicKey = new X509SecurityKey(issuerPublicKey);
 
             validAudience = Assembly.GetEntryAssembly().FullName;
 
