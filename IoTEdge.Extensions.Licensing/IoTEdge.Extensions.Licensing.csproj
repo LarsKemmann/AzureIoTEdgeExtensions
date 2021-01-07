@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>LarsKemmann</Authors>
-    <Version>1.0.0-alpha</Version>
+    <Version>1.1.0-alpha</Version>
     <PackageTags>azure iot edge dotnet</PackageTags>
     <Product>IoTEdge.Extensions.Licensing</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -11,7 +11,8 @@
     <PackageProjectUrl>https://github.com/LarsKemmann/AzureIoTEdgeExtensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LarsKemmann/AzureIoTEdgeExtensions.git</RepositoryUrl>
     <PackageReleaseNotes>
-      1.0.0-alpha is the initial public release, providing the IHostBuilder.ConfigureIoTEdgeLicensing() extension method.
+      1.1.0-alpha is the initial public release, providing the IHostBuilder.ConfigureIoTEdgeLicensing() extension method
+      and a more generic IHostBuilder.ConfigureIoTEdgeLicensing&lt;T&gt;() alternative.
     </PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
