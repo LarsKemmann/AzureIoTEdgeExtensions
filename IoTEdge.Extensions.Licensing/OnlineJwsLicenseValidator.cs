@@ -18,7 +18,7 @@ namespace IoTEdge.Extensions.Licensing
 
         private readonly string licensingServerUrl;
         private readonly X509SecurityKey issuerPublicKey;
-        private readonly string validAudience;
+        private readonly string moduleAssemblyFullName;
         private readonly HttpClient httpClient;
         private readonly AsyncRetryPolicy exponentialBackoffPolicy;
 
@@ -28,7 +28,7 @@ namespace IoTEdge.Extensions.Licensing
             this.licensingServerUrl = licensingServerUrl;
             this.issuerPublicKey = new X509SecurityKey(issuerPublicKey);
 
-            validAudience = Assembly.GetEntryAssembly().FullName;
+            moduleAssemblyFullName = Assembly.GetEntryAssembly().FullName;
 
             httpClient = new HttpClient
             {
@@ -56,6 +56,7 @@ namespace IoTEdge.Extensions.Licensing
 
             var formValues = new Dictionary<string, string>
             {
+                ["moduleAssembly"] = moduleAssemblyFullName,
                 ["nonce"] = requestNonce,
                 ["key"] = licenseKey
             };
@@ -72,7 +73,7 @@ namespace IoTEdge.Extensions.Licensing
                 throw licenseJwsResult.FinalException;
 
             JwsLicenseValidation.Validate(licenseJwsResult.Result, issuerPublicKey,
-                expectedTokenId: requestNonce, validAudience, validIssuer: licensingServerUrl, utcNow,
+                expectedTokenId: requestNonce, validAudience: moduleAssemblyFullName, validIssuer: licensingServerUrl, utcNow,
                 moduleInstanceName, hostName, hubName);
         }
     }
