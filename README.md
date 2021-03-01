@@ -62,7 +62,7 @@ public sealed class MyModuleService : IHostedService
 ## Licensing
 Add the `IoTEdge.Extensions.Licensing` NuGet package to your application.
 
-In your _Program.cs_ file, add `using IoTEdge.Extensions.Licensing;` and then add a call to `IHostBuilder.ConfigureIoTEdgeOnlineLicensing(...)` as follows, using the URL and public key X.509 signing certificate of the licensing server that is used to sign the licenses:
+In your _Program.cs_ file, add `using IoTEdge.Extensions.Licensing;` and then add a call to `IHostBuilder.ConfigureIoTEdgeOnlineLicensing(...)` as follows, using the URL and public key X.509 signing certificate (in PEM format) of the licensing server that is used to sign the licenses:
 ```c#
 using IoTEdge.Extensions.Licensing;
 using System.Security.Cryptography.X509Certificates;
@@ -70,7 +70,7 @@ using System.Security.Cryptography.X509Certificates;
 public static void Main(string[] args)
 {
     // Load the public key certificate (obtained from the licensing server).
-    // Remember to include this file in the build output of your project.
+    // Remember to include this file, in PEM format, in the build output of your project.
     var issuerPublicCert = new X509Certificate2(@".\issuer.cer");
 
     Host.CreateDefaultBuilder(args)
