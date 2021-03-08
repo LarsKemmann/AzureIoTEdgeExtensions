@@ -43,18 +43,18 @@ namespace IoTEdge.Extensions.Licensing
             var claimsPrincipal = jwtHandler.ValidateToken(jws, validationParameters, out var validatedToken);
 
             if (expectedTokenId != null && validatedToken.Id != expectedTokenId)
-                throw new Exception("The token ID in the license did not match the expected value");
+                throw new Exception($"The token ID in the license ({validatedToken.Id}) did not match the expected value ({expectedTokenId})");
 
             if (claimsPrincipal.FindFirst("device").Value != hostName)
-                throw new Exception("The IoT Edge device name in the license did not match the expected value");
+                throw new Exception($"The IoT Edge device name in the license ({claimsPrincipal.FindFirst("device").Value}) did not match the expected value ({hostName})");
 
             if (claimsPrincipal.FindFirst("iothub").Value != hubName)
-                throw new Exception("The IoT Hub name in the license did not match the expected value");
+                throw new Exception($"The IoT Hub name in the license ({claimsPrincipal.FindFirst("iothub").Value}) did not match the expected value ({hubName})");
 
             // The module constraint is optional -- enforce it only if it was specified in the JWS.
             var moduleClaim = claimsPrincipal.FindFirst("module")?.Value;
             if (!string.IsNullOrEmpty(moduleClaim) && moduleClaim != moduleInstanceName)
-                throw new Exception("The module instance name was specified in the license and did not match the expected value");
+                throw new Exception($"The module instance name ({moduleClaim}) was specified in the license and did not match the expected value ({moduleInstanceName})");
         }
     }
 }

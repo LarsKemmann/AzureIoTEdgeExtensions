@@ -28,7 +28,7 @@ namespace IoTEdge.Extensions.Licensing
             this.licensingServerUrl = licensingServerUrl;
             this.issuerPublicKey = new X509SecurityKey(issuerPublicKey);
 
-            moduleAssemblyFullName = Assembly.GetEntryAssembly().FullName;
+            moduleAssemblyFullName = Assembly.GetEntryAssembly().GetName().Name;
 
             httpClient = new HttpClient
             {
