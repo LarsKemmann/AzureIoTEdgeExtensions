@@ -65,10 +65,14 @@ namespace IoTEdge.Extensions.Licensing
             return Task.CompletedTask;
         }
 
-        public Task StopAsync(CancellationToken cancellationToken)
+        public async Task StopAsync(CancellationToken cancellationToken)
         {
             serviceStopping.Cancel();
-            return periodicLicenseChecks;
+            try
+            {
+                await periodicLicenseChecks;
+            }
+            catch (OperationCanceledException) { }
         }
 
 
@@ -89,7 +93,7 @@ namespace IoTEdge.Extensions.Licensing
                 }
                 catch (OperationCanceledException)
                 {
-                    logger.LogDebug("Canceled periodic license checks");
+                    logger.LogTrace("Canceled in-progress license check");
                 }
                 catch (Exception ex)
                 {
