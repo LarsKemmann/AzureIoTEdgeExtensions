@@ -73,8 +73,6 @@ namespace IoTEdge.Extensions.Licensing
                     await licenseValidator.ValidateLicenseAsync(licenseKey,
                         moduleInstanceName, hostName, hubName, DateTime.UtcNow, serviceStopping.Token);
                     logger.LogTrace("License is valid");
-
-                    await Task.Delay(licenseCheckInterval, serviceStopping.Token);
                 }
                 catch (OperationCanceledException)
                 {
@@ -85,11 +83,13 @@ namespace IoTEdge.Extensions.Licensing
                     consecutiveFailures++;
                     logger.LogCritical(ex, isFirstCheck
                         ? $"Startup license validation failed"
-                        : $"Post-startup license validation failed {consecutiveFailures} time(s)");
+                        : $"Post-startup license validation failed {consecutiveFailures} consecutive time(s) of max {maxConsecutiveCheckFailures}");
                     if (isFirstCheck || consecutiveFailures > maxConsecutiveCheckFailures)
                         throw;
                 }
                 isFirstCheck = false;
+
+                await Task.Delay(licenseCheckInterval, serviceStopping.Token);
             } while (!serviceStopping.IsCancellationRequested);
         }
     }
