@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>LarsKemmann</Authors>
-    <Version>1.1.3-alpha</Version>
+    <Version>1.2.0-alpha</Version>
     <PackageTags>azure iot edge dotnet</PackageTags>
     <Product>IoTEdge.Extensions.Licensing</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -15,13 +15,14 @@
       1.1.1-alpha fixes a certificate file format bug on Linux.
       1.1.2-alpha adds the module assembly to the license lookup request parameters.
       1.1.3-alpha improves error logging and simplifies the module assembly name parameter.
+      1.2.0-alpha adds observable metrics for license check failures and fixes a bug with the wait model.
     </PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IoTEdge.Extensions.Hosting" Version="1.0.2-alpha" />
+    <PackageReference Include="IoTEdge.Extensions.Hosting" Version="1.2.0-alpha" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="Polly" Version="7.2.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.9.0" />
