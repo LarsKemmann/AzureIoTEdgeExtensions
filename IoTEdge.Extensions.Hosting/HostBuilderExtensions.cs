@@ -7,8 +7,15 @@ namespace IoTEdge.Extensions.Hosting
 {
     public static class HostBuilderExtensions
     {
+        private static bool telemetryHasBeenConfigured = false;
+
         public static IHostBuilder ConfigureIoTEdgeTelemetry(this IHostBuilder hostBuilder)
         {
+            // Allow this method to be called multiple times but only execute the first time it is called.
+            if (telemetryHasBeenConfigured)
+                return hostBuilder;
+            telemetryHasBeenConfigured = true;
+
             return hostBuilder
                 .ConfigureLogging((context, logging) =>
                 {

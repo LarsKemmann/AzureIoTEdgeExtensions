@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using IoTEdge.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,14 +19,16 @@ namespace IoTEdge.Extensions.Licensing
             where T : ILicenseValidator
         {
             return hostBuilder
+                .ConfigureIoTEdgeTelemetry()
                 .ConfigureServices(services =>
                 {
                     // Set up a shared module-level IoT Edge module licensing service.
                     services.AddHostedService(serviceProvider =>
                     {
                         var logger = serviceProvider.GetRequiredService<ILogger<ModuleLicensingService>>();
+                        var moduleMetrics = serviceProvider.GetRequiredService<IModuleMetrics>();
                         var licenseProvider = licenseValidatorFactory(serviceProvider);
-                        return new ModuleLicensingService(logger, licenseProvider);
+                        return new ModuleLicensingService(logger, licenseProvider, moduleMetrics);
                     });
                 });
         }
