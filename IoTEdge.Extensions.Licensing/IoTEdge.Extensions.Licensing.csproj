@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IoTEdge.Extensions.Hosting" Version="1.2.0-alpha" />
+    <PackageReference Include="IoTEdge.Extensions.Hosting" Version="1.3.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="Polly" Version="7.2.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.9.0" />
