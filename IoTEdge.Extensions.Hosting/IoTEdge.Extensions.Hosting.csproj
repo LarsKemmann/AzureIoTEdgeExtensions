@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
-    <PackageReference Include="prometheus-net" Version="4.0.0" />
+    <PackageReference Include="prometheus-net" Version="4.1.1" />
   </ItemGroup>
 
 </Project>
