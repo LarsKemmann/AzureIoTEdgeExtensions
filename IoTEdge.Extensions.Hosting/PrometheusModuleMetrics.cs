@@ -51,5 +51,16 @@ namespace IoTEdge.Extensions.Hosting
                     SuppressInitialValue = true
                 }).WithLabels(baseLabelValues);
         }
+
+        public ICounter CreateCounter(string name, string help, params string[] additionalLabels)
+        {
+            return Metrics.CreateCounter(name, help,
+                new CounterConfiguration
+                {
+                    LabelNames = baseLabelNames.Concat(additionalLabels).ToArray(),
+                    SuppressInitialValue = true
+                })
+                .WithLabels(baseLabelValues);
+        }
     }
 }

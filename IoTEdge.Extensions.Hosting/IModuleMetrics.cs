@@ -9,5 +9,7 @@ namespace IoTEdge.Extensions.Hosting
         IHistogram CreateDurationHistogram(string name, string help, params string[] additionalLabels);
 
         IGauge CreateGauge(string name, string help, params string[] additionalLabels);
+
+        ICounter CreateCounter(string name, string help, params string[] additionalLabels);
     }
 }
