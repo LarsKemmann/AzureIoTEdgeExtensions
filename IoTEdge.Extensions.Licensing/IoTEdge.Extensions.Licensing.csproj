@@ -3,23 +3,24 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>LarsKemmann</Authors>
-    <Version>1.3.0</Version>
+    <Version>1.4.0</Version>
     <PackageTags>azure iot edge dotnet</PackageTags>
     <Product>IoTEdge.Extensions.Licensing</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>Provides a licensing extension for Azure IoT Edge using the WorkSense Edge Licensing Service.</Description>
     <PackageProjectUrl>https://github.com/LarsKemmann/AzureIoTEdgeExtensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LarsKemmann/AzureIoTEdgeExtensions.git</RepositoryUrl>
-    <PackageReleaseNotes>1.3.0 marks this package as stable and production-tested.</PackageReleaseNotes>
+    <PackageReleaseNotes>1.4.0 updates dependencies for this package.</PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="IoTEdge.Extensions.Hosting" Version="1.3.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
-    <PackageReference Include="Polly" Version="7.2.1" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.9.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Polly" Version="7.2.3" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.19.0" />
   </ItemGroup>
   
 </Project>
