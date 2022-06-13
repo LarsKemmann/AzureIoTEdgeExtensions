@@ -3,14 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>LarsKemmann</Authors>
-    <Version>1.3.0</Version>
+    <Version>1.4.0</Version>
     <PackageTags>azure iot edge dotnet</PackageTags>
     <Product>IoTEdge.Extensions.Hosting</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>Provides extensions for Azure IoT Edge to integrate with the modern .NET hosting model, and implements IoT Edge recommendations for logging and metrics.</Description>
     <PackageProjectUrl>https://github.com/LarsKemmann/AzureIoTEdgeExtensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LarsKemmann/AzureIoTEdgeExtensions.git</RepositoryUrl>
-    <PackageReleaseNotes>1.3.0 marks this package as stable and production-tested.</PackageReleaseNotes>
+    <PackageReleaseNotes>1.4.0 adds the Prometheus counter metric type.</PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
